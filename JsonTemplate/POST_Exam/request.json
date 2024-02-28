@@ -1,0 +1,28 @@
+{
+    "Title": "IELTS General Sample reading test 2",
+    "TimeLimit": 40,
+    "IsReadingExam": true,
+    "Sections": [
+        {
+            "Title": "Section 1",
+            "TextOrMediaLink": "Đây là đoạn text rất là dài",
+            "Parts": [
+                {
+                    "Text": "Which advertisement mentions the following? 1",
+                    "Questions": [
+                        {
+                            "Title": "_________ a remote location1",
+                            "RightAnswer": "Đây là đáp án đúng cho câu hỏi trên",
+                            "Answers": [
+                                "Đây là",
+                                "danh sách",
+                                "đáp án",
+                                "có chứa đáp án đúng"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
