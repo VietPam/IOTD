@@ -11,7 +11,7 @@
                     "Text": "Which advertisement mentions the following? 1",
                     "Questions": [
                         {
-                            "Title": "_________ a remote location1",
+                            "Text": "_________ a remote location1",
                             "RightAnswer": "Đây là đáp án đúng cho câu hỏi trên",
                             "Answers": [
                                 "Đây là",

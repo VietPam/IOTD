@@ -7,8 +7,8 @@ public class ExamsController : ControllerBase
 {
     [HttpPost]
     [Route("")]
-    public IActionResult CreateNewExam([FromBody]ExamUploadModel command)
+    public async Task<IActionResult> CreateNewExamAsync([FromBody]ExamUploadModel command)
     {
-        return Ok(Program.api_exam.uploadExam(command));
+        return Ok(await Program.api_exam.uploadExam(command));
     }
 }

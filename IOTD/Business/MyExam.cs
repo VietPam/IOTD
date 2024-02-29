@@ -1,4 +1,5 @@
-﻿using IOTD.Data;
+﻿using Domain.Entities;
+using IOTD.Data;
 using IOTD.Entities;
 using System.Security.Cryptography.X509Certificates;
 using static IOTD.Controllers.Exams.ExamsModel;
@@ -9,37 +10,70 @@ public class MyExam
 {
     public MyExam() { }
 
-    public async string uploadExam(ExamUploadModel command)
+    public async Task<string> uploadExam(ExamUploadModel command)
     {
-        var response = "Server bị lỗi ";
+        string response ;
         using (DataContext context = new DataContext())
         {
             using (var transaction = await context.Database.BeginTransactionAsync())
             {
                 try
                 {
-
+                    #region check exist exam
                     var existingExam = context.exams.Where(s => s.Title == command.Title).FirstOrDefault();
                     if (existingExam is not null)
                     {
                         return response = "Exams trùng title";
                     }
-                    var newExam = new SqlExam();
-                    newExam.Title = command.Title;
-                    newExam.TimeLimit = command.TimeLimit;
-                    newExam.IsReadingExam = command.IsReadingExam;
-                    if (newExam.Sections is null)
+                    #endregion 
+
+                    var sqlExam = new SqlExam();
+                    #region tạo exam
+
+                    sqlExam.Title = command.Title;
+                    sqlExam.TimeLimit = command.TimeLimit;
+                    sqlExam.IsReadingExam = command.IsReadingExam;
+                    //if (command.Sections is null)
+                    //{
+                    //    return response = "Exams phải có sections";
+                    //}
+                    #endregion 
+
+                    #region tạo Sections
+
+                    foreach (var section in command.Sections)
                     {
-                        return response = "Exams phải có sections";
+                        var sqlSection = new SqlSection();
+                        sqlSection.Title = section.Title;
+                        sqlSection.TextOrMediaLink = section.TextOrMediaLink;
+
+                        foreach (var part in section.Parts)
+                        {
+                            var sqlPart = new SqlPart();
+                            sqlPart.Text = part.Text;
+
+                            foreach (var question in part.Questions)
+                            {
+                                var sqlQuestion = new SqlQuestion();
+                                sqlQuestion.Text = question.Text;
+                                sqlQuestion.RightAnswer = question.RightAnswer;
+                                sqlQuestion.Answers = question.Answers;
+
+                                sqlPart.Questions.Add(sqlQuestion);
+                                context.questions.Add(sqlQuestion);
+                            }
+                            sqlSection.Parts.Add(sqlPart);
+                            context.parts.Add(sqlPart);
+                        }
+
+                        sqlExam.Sections.Add(sqlSection);
+                        context.sections.Add(sqlSection);
                     }
-                    foreach (var section in newExam.Sections)
-                    {
-
-                    }
-
-
+                    #endregion 
+                    context.exams.Add(sqlExam);
+                    await context.SaveChangesAsync();
                     await transaction.CommitAsync();
-                    return response;
+                    return response = "Thành công";
                 }
                 catch (Exception ex)
                 {

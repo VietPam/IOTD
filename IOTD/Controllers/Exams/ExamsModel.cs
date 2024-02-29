@@ -12,7 +12,7 @@ public class ExamsModel
 
         public bool IsReadingExam { get; set; } = true;
 
-        public List<SectionUploadModel> Sections { get; set; }
+        public List<SectionUploadModel> Sections { get; set; } 
 
     }
     public class SectionUploadModel
@@ -25,7 +25,7 @@ public class ExamsModel
     }
     public class PartUploadModel
     {
-        public string Title { get; set; } = string.Empty;
+        public string Text { get; set; } = string.Empty;
 
         public string? TextOrMediaLink { get; set; } = null;
 

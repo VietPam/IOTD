@@ -11,7 +11,7 @@ public class SqlPart :BaseEntity
 {
     public string Text { get; set; } = string.Empty;
 
-    public List<SqlQuestion> Questions { get; set; }
+    public List<SqlQuestion> Questions { get; set; } = new List<SqlQuestion>();
     public SqlSection Section { get; set; }
 }
 

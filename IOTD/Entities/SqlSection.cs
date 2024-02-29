@@ -14,5 +14,5 @@ public class SqlSection : BaseEntity
 
     public SqlExam? Exam { get; set; } = null;
 
-    public List<SqlPart> Parts { get; set; }
+    public List<SqlPart> Parts { get; set; } = new List<SqlPart>();
 }
