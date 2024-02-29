@@ -113,6 +113,7 @@ public class MyExam
                     foreach (var question in part.Questions)
                     {
                         var questionDTO = new QuestionGetDTO();
+                        questionDTO.Id = question.Id;
                         questionDTO.Text = question.Text;
                         questionDTO.Answers = question.Answers;
 
@@ -123,6 +124,27 @@ public class MyExam
                 response.Sections.Add(sectionDTO);
             }
         }
+        return response;
+    }
+    public List<ExamsGetDTO>? getExams()
+    {
+        List<ExamsGetDTO>? response = new List<ExamsGetDTO>();
+
+        using (DataContext context = new DataContext())
+        {
+            List<SqlExam>? sqlExams = context.exams.ToList();
+
+            foreach (var sqlExam in sqlExams)
+            {
+                var examDTO = new ExamsGetDTO();
+                examDTO.Title = sqlExam.Title;
+                examDTO.TimeLimit = sqlExam.TimeLimit;
+                examDTO.IsReadingExam = sqlExam.IsReadingExam;
+                
+                response.Add(examDTO);
+            }
+        }
+
         return response;
     }
 }

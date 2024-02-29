@@ -14,7 +14,7 @@ public class DataContext : DbContext
     public DbSet<SqlSection> sections { get; set; }
     public DbSet<SqlQuestion> questions { get; set; }
     public DbSet<SqlResult> results { get; set; }
-    public DbSet<SqlLogs> logs { get; set; }
+    public DbSet<SqlLog> logs { get; set; }
 
     public static string configSql = "Host=localhost:5434;Database=IOTD1;Username=postgres;Password=12345678";
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

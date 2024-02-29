@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Ielts_online_test_dotnet.Model;
 
 [Table("tb_answerLogs")]
-public class SqlLogs :BaseEntity
+public class SqlLog :BaseEntity
 {
     public string Answer { get; set; } = string.Empty;
 
@@ -13,7 +13,7 @@ public class SqlLogs :BaseEntity
 
     public SqlResult Result { get; set; }
 
-    public SqlQuestion Question { get; set; }
+    public SqlQuestion? Question { get; set; }
 
 
 }

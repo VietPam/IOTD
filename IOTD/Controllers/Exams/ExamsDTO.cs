@@ -4,6 +4,14 @@ namespace IOTD.Controllers.Exams;
 
 public class ExamsDTO
 {
+    public class ExamsGetDTO
+    {
+        public string Title { get; set; } = string.Empty;
+
+        public int TimeLimit { get; set; } = 40;
+
+        public bool IsReadingExam { get; set; } = true;
+    }
     public class ExamGetDTO
     {
         public string Title { get; set; } = string.Empty;
@@ -33,6 +41,7 @@ public class ExamsDTO
 
     public class QuestionGetDTO
     {
+        public long Id { get; set; }
         public string Text { get; set; } = string.Empty;
 
         public List<string> Answers { get; set; } = new List<string>();

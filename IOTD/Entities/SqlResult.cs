@@ -9,15 +9,13 @@ namespace Ielts_online_test_dotnet.Model;
 [Table("tb_result")]
 public class SqlResult : BaseEntity
 {
-    public DateTime TimeBegin { get; set; } = DateTime.UtcNow;
+    public int RightCount { get; set; } = 0;
 
-    public int AttemptCount { get; set; } = 0;
+    public DateTime TimeBegin { get; set; } = DateTime.UtcNow;
 
     public DateTime? TimeEnd{ get; set; } = null;
 
-    public SqlUser UserTaken { get; set; }
-
     public SqlExam Exam { get; set; }
 
-    public List<SqlLogs> AnswerLogs { get; set; } = new List<SqlLogs>();//List<SqlAnswerLogs>
+    public List<SqlLog> AnswerLogs { get; set; } = new List<SqlLog>();
 }

@@ -7,6 +7,8 @@ namespace Domain.Entities;
 [Table("tb_question")]
 public class SqlQuestion  : BaseEntity
 {
+    public bool IsMultichoice { get; set; } = true; // false là multichoices
+
     public string Text { get; set; } = string.Empty; 
 
     public string RightAnswer { get; set; } = string.Empty;

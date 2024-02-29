@@ -9,6 +9,7 @@ namespace IOTD;
 public class Program
 {
     public static MyExam api_exam = new MyExam();
+    public static MyResult api_result = new MyResult();
     public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);

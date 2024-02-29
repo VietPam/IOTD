@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using IOTD.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IOTD.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240229162019_update1")]
+    partial class update1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,20 +177,20 @@ namespace IOTD.Data.Migrations
                     b.Property<int>("RightCount")
                         .HasColumnType("integer");
 
-                    b.Property<long?>("SqlUserId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("TimeBegin")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("TimeEnd")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<long>("UserTakenId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ExamId");
 
-                    b.HasIndex("SqlUserId");
+                    b.HasIndex("UserTakenId");
 
                     b.ToTable("tb_result");
                 });
@@ -267,11 +270,15 @@ namespace IOTD.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Ielts_online_test_dotnet.Model.SqlUser", null)
+                    b.HasOne("Ielts_online_test_dotnet.Model.SqlUser", "UserTaken")
                         .WithMany("ExamsTaken")
-                        .HasForeignKey("SqlUserId");
+                        .HasForeignKey("UserTakenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Exam");
+
+                    b.Navigation("UserTaken");
                 });
 
             modelBuilder.Entity("Domain.Entities.SqlPart", b =>

@@ -130,7 +130,7 @@ namespace IOTD.Data.Migrations
                     b.ToTable("tb_section");
                 });
 
-            modelBuilder.Entity("Ielts_online_test_dotnet.Model.SqlLogs", b =>
+            modelBuilder.Entity("Ielts_online_test_dotnet.Model.SqlLog", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -242,7 +242,7 @@ namespace IOTD.Data.Migrations
                     b.Navigation("Exam");
                 });
 
-            modelBuilder.Entity("Ielts_online_test_dotnet.Model.SqlLogs", b =>
+            modelBuilder.Entity("Ielts_online_test_dotnet.Model.SqlLog", b =>
                 {
                     b.HasOne("Domain.Entities.SqlQuestion", "Question")
                         .WithMany()

@@ -12,10 +12,20 @@ public class ExamsController : ControllerBase
     {
         return Ok(await Program.api_exam.uploadExam(command));
     }
+
     [HttpGet]
     [Route("{Id}")]
-    public IActionResult GetExamAsync(long Id)
+    public IActionResult GetExam(long Id)
     {
         return Ok(Program.api_exam.getExam(Id));
     }
+
+    [HttpGet]
+    [Route("")]
+    public IActionResult GetExams()
+    {
+        return Ok(Program.api_exam.getExams());
+    }
+
+
 }
