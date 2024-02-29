@@ -15,6 +15,6 @@ public class SqlExam :BaseEntity
 
     public bool IsReadingExam { get; set; } = true;
 
-    public List<SqlSection>? Sections { get; set; } = null;
+    public List<SqlSection>? Sections { get; set; } =new List<SqlSection>();
 
 }
