@@ -1,7 +1,9 @@
 ﻿using Domain.Entities;
 using IOTD.Data;
 using IOTD.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
+using static IOTD.Controllers.Exams.ExamsDTO;
 using static IOTD.Controllers.Exams.ExamsModel;
 
 namespace IOTD.Business;
@@ -84,4 +86,43 @@ public class MyExam
         }
     }
 
+    public ExamGetDTO getExam(long id)
+    {
+        ExamGetDTO response = new ExamGetDTO();
+        using (DataContext context = new DataContext())
+        {
+            SqlExam? sqlExam = context.exams
+                .Include(e=> e.Sections).ThenInclude(s => s.Parts).ThenInclude(p => p.Questions)
+                .FirstOrDefault(e => e.Id == id);
+            if (sqlExam is null)
+            {
+                return response;
+            }
+            response.Title = sqlExam.Title;
+            response.TimeLimit = sqlExam.TimeLimit;
+            response.IsReadingExam = sqlExam.IsReadingExam;
+            foreach (var section in sqlExam.Sections)
+            {
+                var sectionDTO = new SectionGetDTO();
+                sectionDTO.Title= section.Title;
+                sectionDTO.TextOrMediaLink = section.TextOrMediaLink;
+                foreach (var part in section.Parts)
+                {
+                    var partDTO = new PartGetDTO();
+                    partDTO.Text= part.Text;
+                    foreach (var question in part.Questions)
+                    {
+                        var questionDTO = new QuestionGetDTO();
+                        questionDTO.Text = question.Text;
+                        questionDTO.Answers = question.Answers;
+
+                        partDTO.Questions.Add(questionDTO);
+                    }
+                    sectionDTO.Parts.Add(partDTO);
+                }
+                response.Sections.Add(sectionDTO);
+            }
+        }
+        return response;
+    }
 }

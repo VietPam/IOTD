@@ -20,6 +20,7 @@ public class ExamsModel
         public string Title { get; set; } = string.Empty;
 
         public string? TextOrMediaLink { get; set; } = null;
+
         public List<PartUploadModel> Parts { get; set; }
 
     }
@@ -38,6 +39,5 @@ public class ExamsModel
         public string RightAnswer { get; set; } = string.Empty;
 
         public List<string> Answers { get; set; } = new List<string>();
-
     }
 }
